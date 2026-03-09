@@ -29,7 +29,11 @@ def upload_to_drive(service, image_bytes: io.BytesIO, filename: str, folder_id: 
             "parents": [folder_id]
         }
         media = MediaIoBaseUpload(image_bytes, mimetype="image/jpeg")
-        service.files().create(body=file_metadata, media_body=media).execute()
+        service.files().create(
+            body=file_metadata,
+            media_body=media,
+            supportsAllDrives=True  # This is the key addition
+        ).execute()
         return True
     except Exception as e:
         st.warning(f"Could not save {filename} to Drive: {e}")
