@@ -56,7 +56,7 @@ if uploaded_file is not None:
     detections_folder = st.secrets["folders"]["detections"]
 
     # Upload original image
-    original_buf = io.BytesIO()
+   original_buf = io.BytesIO()
     image.save(original_buf, format="JPEG")
     original_buf.seek(0)
     upload_to_drive(service, original_buf, f"original_{base_name}", originals_folder)
@@ -83,5 +83,6 @@ if uploaded_file is not None:
             cls_id = int(box.cls.cpu().numpy().item())
             conf = float(box.conf.cpu().numpy().item())
             st.write(f"Class: {model.names[cls_id]} | Confidence: {conf:.2f}")
+
 
 st.success("✅ Images saved to Google Drive!")
